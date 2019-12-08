@@ -4,9 +4,7 @@ import pandas
 
 import pytest
 
-from dublincitynoise import fetch, import_historical, historical
-
-api = fetch
+from dublincitynoise import api
 
 
 # basic happy case
