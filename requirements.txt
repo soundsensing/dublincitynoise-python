@@ -4,3 +4,4 @@ pandas>=0.24
 requests>=2.22.0
 lxml>=4.4
 dask[dataframe]>=2.4.0
+tables>=3.6

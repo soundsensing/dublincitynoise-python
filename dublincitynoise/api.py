@@ -8,24 +8,9 @@ import pandas
 import requests
 import numpy
 
+from . import sensors
 
-sensor_sites = [
-    "Drumcondra Library",
-    "Bull Island",
-    "Ballyfermot Civic Centre",
-    "Ballymun Library",
-    "Dublin City Council Rowing Club",
-    "Walkinstown Library",
-    "Woodstock Gardens",
-    "Navan Road",
-    "Raheny Library",
-    "Irishtown Stadium",
-    "Chancery Park",
-    "Blessington St. Basin",
-    "Dolphins Barn",
-    "Sean Moore Road",
-    "Mellows Park"
-]
+sensor_sites = sensors.api_order
 
 def get_data(location, start, end):
 

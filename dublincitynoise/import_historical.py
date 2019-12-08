@@ -31,11 +31,16 @@ def load_csv(path):
     columns = ('A_Leq', 'A_L10', 'A_L95',
                'C_Leq', 'C_L10', 'C_L95')
 
+    dtypes = { n: 'float64' for n in columns }
+
     df = pandas.read_csv(path,
             header=None, skiprows=9,
             sep=',', delim_whitespace=False,
-            names=columns
+            names=columns, dtype=dtypes,
     )
+ 
+    #for c in df.columns:
+    #    print(df[c].dtype)
 
     df['time'] = df.index
     df.time = pandas.to_datetime(df.time, format='%d/%m/%Y %H:%M:%S')
@@ -44,8 +49,7 @@ def load_csv(path):
     return df
 
 
-def load_data(path):
-
+def load_data(path, site=None):
 
     matches = glob.glob(path)
 
@@ -54,6 +58,9 @@ def load_data(path):
     for m in matches:
         try:
             df = load_csv(m)
+            if site is not None:
+                df['site'] = site
+
             dfs.append(df)
             #print('l', len(df), df.columns)
         except ValueError as e:
@@ -144,12 +151,13 @@ def main():
 
     for idx, d in with_data.iterrows():
         p = csv_path(d)
-        df = load_data(p)
-        print('p', p)
+        df = load_data(p, site=d['name'])
+        print('p', p, d['name'])
         dds.append(df)
         print('l', len(df))
 
     joined = pandas.concat(dds)
+    joined.to_hdf('joined.h5', 'soundlevels', format='table')
     print(joined)
 
     
