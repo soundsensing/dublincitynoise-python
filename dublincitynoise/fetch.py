@@ -9,7 +9,7 @@ import requests
 import numpy
 
 
-sensor_locations = [
+sensor_sites = [
     "Drumcondra Library",
     "Bull Island",
     "Ballyfermot Civic Centre",
@@ -35,7 +35,7 @@ def get_data(location, start, end):
     """
 
     try:
-        location_id = sensor_locations.index(location)
+        location_id = sensor_sites.index(location)
     except ValueError as e:
         raise ValueError(f"Unknown sensor location {location}")
 
@@ -63,7 +63,6 @@ def get_data(location, start, end):
     missing_fields = set(['aleq', 'dates', 'times']) - set(data.keys())
     assert not missing_fields, f'Response missing fields: {missing_fields}'
 
-
     # 05/05/2013 22:45:00
     date_format = '%d/%m/%Y %H:%M:%S'
     out = []
@@ -72,13 +71,20 @@ def get_data(location, start, end):
         leq = float(leq)
         out.append({'time': dt, 'A_leq': leq})
    
-    # postconditions
+    # check postconditions
     first = out[0]['time']
     for idx, d in enumerate(out[1:]):
         t = d['time']
         assert t > first, f'times are not sorted {idx}. {t} < {first}'
 
-    return out
+    # convert to pandas DataFrame
+    df = pandas.DataFrame.from_records(out)
+    df.index = df.time
+    df = df.drop('time', axis=1)
+    df['site'] = location
+    df['site_id'] = location_id
+
+    return df
 
 
 
@@ -103,15 +109,15 @@ def parse():
 
     # default to all
     if not args.locations:
-        args.locations = sensor_locations
+        args.locations = sensor_sites
 
     return args
 
 
-def fetch_locations():
+def fetch_locations(sites):
 
     dfs = [] 
-    for location in locations:
+    for site in sensor_sites:
         data = get_data(location=location, start=start, end=end)
         dfs.append(dfs)
 
@@ -127,7 +133,8 @@ def main():
 
     end = datetime.datetime.utcnow()
     start = end - datetime.timedelta(seconds=24*60*60)
-        
+    
+    fetch_locations
 
 
     print(info)
