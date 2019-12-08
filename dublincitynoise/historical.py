@@ -9,7 +9,6 @@ import hashlib
 
 import requests
 import pandas
-import dask.dataframe
 import lxml.html
 
 
@@ -53,17 +52,7 @@ def fetch_urls():
 
 
 
-def load_data(path):
-    columns = ('A_Leq', 'A_L10', 'A_L95',
-               'C_Leq', 'C_L10', 'C_L95')
-    # TODO: 
-    df = dask.dataframe.read_csv(path,
-            header=None, skiprows=9,
-            sep=',', delim_whitespace=False,
-            names=columns,
-    )
-    # FIXME: index time
-    return df
+
 
 def url_filename(url):
     return url.split('/')[-1]
