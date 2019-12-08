@@ -1,14 +1,15 @@
 
+[![Build Status](https://travis-ci.org/soundsensing/dublincitynoise-python.svg?branch=master)](https://travis-ci.org/soundsensing/dublincitynoise-python)
+
 # Python module for Dublin City Noise
 
 [Dublin City Noise](https://dublincitynoise.com/) has a sensor network
-with 12 sensor sites that have been operating since 2012.
-
-They provide both [historical data](https://data.smartdublin.ie/dataset/noise_monitoring) and an
-[API](http://dublincitynoise.sonitussystems.com/applications/api/api-doc.html).
+with 12 sound-level sensor across the city. Most of the senors have been operating since 2012.
+The project provides both [historical data](https://data.smartdublin.ie/dataset/noise_monitoring)
+and an [API](http://dublincitynoise.sonitussystems.com/applications/api/api-doc.html).
 
 This Python module provides easy and convenient access to these datasource.
-It is intended to support research and development of data analytics for noise.
+It is intended to support research and development of data analytics for noise monitoring.
 
 ## Licenses
 

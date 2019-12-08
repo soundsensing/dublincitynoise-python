@@ -8,4 +8,4 @@ install:
 - pip install -r requirements.txt
 - pip install -r requirements-dev.txt
 script:
-- pytest -v --cov=emlearn --cov-report html --cov-report term-missing --cov-branch
+- pytest -v --cov=dublincitynoise --cov-report html --cov-report term-missing --cov-branch
